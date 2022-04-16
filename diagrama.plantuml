@@ -1,0 +1,62 @@
+@startuml
+
+class Prenda {
+  estado
+  precioBase
+  tipo
+
+  precio()
+}
+
+interface Estado {
+  precioFinal(precioBase)
+}
+
+class Nueva {
+    precioFinal(precioBase)
+}
+
+class Promocion {
+  valorFijo
+  precioFinal(precioBase)
+}
+
+class Liquidacion {
+    precioFinal(precioBase)
+}
+
+class Articulo {
+  prenda
+  cantidad
+  importe()
+}
+
+class  Venta {
+  articulos
+  fecha
+  importe()
+  esDeFecha(unaFecha)
+}
+
+class VentaTarjeta {
+  cantidadCuotas
+  coeficienteFijo
+  importe()
+}
+
+class RegistroVentas {
+  ventas
+  gananciasDeFecha(fecha)
+}
+
+RegistroVentas -right->"*" Venta
+Venta <|-right- VentaTarjeta
+Venta -down->"*" Articulo
+Articulo -down-> Prenda
+Prenda -down-> Estado
+Estado <|.down. Nueva
+Estado <|.down. Promocion
+Estado <|.down. Liquidacion
+
+
+@enduml
